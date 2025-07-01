@@ -6,8 +6,17 @@ export async function GET(req, { params }) {
     include: { questions: true },
   });
 
-  if (!quiz) return Response.json({ error: "Quiz tapılmadı" }, { status: 404 });
-  return Response.json(quiz);
+  if (!quiz) {
+    return new Response(JSON.stringify({ error: "Quiz tapılmadı" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  return new Response(JSON.stringify(quiz), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
 
 export async function PUT(req, { params }) {
@@ -21,7 +30,6 @@ export async function PUT(req, { params }) {
     },
   });
 
-
   for (let q of body.questions) {
     await prisma.question.update({
       where: { id: q.id },
@@ -33,9 +41,11 @@ export async function PUT(req, { params }) {
     });
   }
 
-  return Response.json({ message: "Uğurla yeniləndi" });
+  return new Response(JSON.stringify({ message: "Uğurla yeniləndi" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
-
 
 export async function DELETE(req, { params }) {
   const { quizId } = params;

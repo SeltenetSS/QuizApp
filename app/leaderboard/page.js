@@ -27,19 +27,20 @@ export default async function LeaderboardPage() {
             <th className="p-3 border">Tarix</th>
           </tr>
         </thead>
-        <tbody>
-          {results.map((r) => (
-            <tr key={r.id} className="hover:bg-gray-50">
-              <td className="p-3 border">{r.user.email}</td>
-              <td className="p-3 border">{r.quiz.title}</td>
-              <td className="p-3 border font-semibold">{r.score}</td>
-              <td className="p-3 border">{r.total}</td>
-              <td className="p-3 border text-sm text-gray-500">
-                {new Date(r.createdAt).toLocaleString("az-AZ")}
-              </td>
-            </tr>
-          ))}
-        </tbody>
+      <tbody>
+  {results.map((r) => (
+    <tr key={r.id} className="hover:bg-gray-50">
+      <td className="p-3 border">{r.user?.email || "Anonim"}</td>
+      <td className="p-3 border">{r.quiz.title}</td>
+      <td className="p-3 border font-semibold">{r.score}</td>
+      <td className="p-3 border">{r.total}</td>
+      <td className="p-3 border text-sm text-gray-500">
+        {new Date(r.createdAt).toLocaleString("az-AZ")}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
       </table>
     </div>
   );

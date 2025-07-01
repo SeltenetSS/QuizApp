@@ -39,11 +39,13 @@ model Question {
 
 model Result {
   id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?  // burada nullable
   quiz      Quiz     @relation(fields: [quizId], references: [id])
   quizId    String
   score     Int
   total     Int
   createdAt DateTime @default(now())
 }
+
+
