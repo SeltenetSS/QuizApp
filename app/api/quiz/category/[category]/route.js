@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
   });
 
   if (!quiz) {
-    return Response.json({ error: "Quiz tapılmadı" }, { status: 404 });
+    return Response.json({ error: "Quiz not found" }, { status: 404 });
   }
 
   return Response.json(quiz);

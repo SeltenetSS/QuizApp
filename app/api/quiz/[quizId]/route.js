@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
   });
 
   if (!quiz) {
-    return new Response(JSON.stringify({ error: "Quiz tapılmadı" }), {
+    return new Response(JSON.stringify({ error: "Quiz not found" }), {
       status: 404,
       headers: { "Content-Type": "application/json" },
     });
@@ -41,7 +41,7 @@ export async function PUT(req, { params }) {
     });
   }
 
-  return new Response(JSON.stringify({ message: "Uğurla yeniləndi" }), {
+  return new Response(JSON.stringify({ message: "Successfully updated" }), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });

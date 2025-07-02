@@ -10,7 +10,7 @@ export default function QuizResultPage() {
   const total = Number(searchParams.get("total"));
   const [quiz, setQuiz] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [answers, setAnswers] = useState({}); // istifadəçinin cavabları
+  const [answers, setAnswers] = useState({}); 
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -21,20 +21,19 @@ export default function QuizResultPage() {
     };
     fetchQuiz();
 
-    // **Burada cavabları localStorage-dan oxuyuruq**
     const savedAnswers = localStorage.getItem(`quiz_answers_${quizId}`);
     if (savedAnswers) {
       setAnswers(JSON.parse(savedAnswers));
     }
   }, [quizId]);
 
-  if (loading) return <div>Yüklənir...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">Nəticəniz</h2>
+      <h2 className="text-2xl font-bold mb-4">Your Result</h2>
       <p className="mb-4">
-        {score} / {total} doğru cavab.
+        {score} / {total} correct answers.
       </p>
 
       <div className="space-y-4">
@@ -50,12 +49,12 @@ export default function QuizResultPage() {
                 <b>{idx + 1}. {q.question}</b>
               </p>
               <p>
-                Sənin cavabın:{" "}
+                Your answer:{" "}
                 <span className={isCorrect ? "text-green-600" : "text-red-600"}>
-                  {userAnswer || "Cavab yoxdur"}
+                  {userAnswer || "No answer"}
                 </span>
               </p>
-              {!isCorrect && <p>Doğru cavab: {q.answer}</p>}
+              {!isCorrect && <p>Correct answer: {q.answer}</p>}
             </div>
           );
         })}

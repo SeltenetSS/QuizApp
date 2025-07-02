@@ -39,18 +39,18 @@ export default function AddQuizPage() {
     if (res.ok) {
       router.push("/admin/quizzes");
     } else {
-      alert("Xəta baş verdi");
+      alert("An error occurred");
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Yeni Quiz Əlavə Et</h2>
+      <h2 className="text-2xl font-bold mb-4">Add New Quiz</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <input
           type="text"
-          placeholder="Quiz Başlığı"
+          placeholder="Quiz Title"
           className="w-full border p-2 rounded"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -58,7 +58,7 @@ export default function AddQuizPage() {
         />
         <input
           type="text"
-          placeholder="Kateqoriya"
+          placeholder="Category"
           className="w-full border p-2 rounded"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -69,7 +69,7 @@ export default function AddQuizPage() {
           <div key={idx} className="border p-4 rounded-md bg-gray-50 space-y-2">
             <input
               type="text"
-              placeholder={`Sual ${idx + 1}`}
+              placeholder={`Question ${idx + 1}`}
               className="w-full border p-2 rounded"
               value={q.question}
               onChange={(e) =>
@@ -79,7 +79,7 @@ export default function AddQuizPage() {
             />
             <input
               type="text"
-              placeholder="Düzgün cavab"
+              placeholder="Correct Answer"
               className="w-full border p-2 rounded"
               value={q.answer}
               onChange={(e) =>
@@ -91,7 +91,7 @@ export default function AddQuizPage() {
               <input
                 key={optIdx}
                 type="text"
-                placeholder={`Seçim ${optIdx + 1}`}
+                placeholder={`Option ${optIdx + 1}`}
                 className="w-full border p-2 rounded"
                 value={opt}
                 onChange={(e) => {
@@ -111,14 +111,14 @@ export default function AddQuizPage() {
             onClick={addQuestion}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            Sual Əlavə Et
+            Add Question
           </button>
 
           <button
             type="submit"
             className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
           >
-            Yadda Saxla
+            Save
           </button>
         </div>
       </form>

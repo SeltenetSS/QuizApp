@@ -8,7 +8,8 @@ export default function StartQuizPage() {
   const router = useRouter();
   const [quiz, setQuiz] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [answers, setAnswers] = useState({}); // { questionId: selectedOption }
+  const [answers, setAnswers] = useState({});
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -26,7 +27,7 @@ export default function StartQuizPage() {
     fetchQuiz();
   }, [quizId]);
 
-  if (loading) return <div>Yüklənir...</div>;
+  if (loading) return <div>Loading...</div>;
 
   const handleAnswerChange = (questionId, option) => {
     setAnswers((prev) => ({ ...prev, [questionId]: option }));
@@ -35,6 +36,11 @@ export default function StartQuizPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!userName.trim()) {
+      alert("Please enter your name");
+      return;
+    }
+
     let score = 0;
     quiz.questions.forEach((q) => {
       if ((answers[q.id] || "").trim().toLowerCase() === q.answer.trim().toLowerCase()) {
@@ -42,25 +48,37 @@ export default function StartQuizPage() {
       }
     });
 
-    // **Burada cavabları localStorage-a yazırıq**
     localStorage.setItem(`quiz_answers_${quizId}`, JSON.stringify(answers));
 
     const res = await fetch("/api/result", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quizId, score, total: quiz.questions.length }),
+      body: JSON.stringify({ quizId, score, total: quiz.questions.length, userName }),
     });
 
     if (res.ok) {
       router.push(`/quiz/result/${quizId}?score=${score}&total=${quiz.questions.length}`);
     } else {
-      alert("Nəticə yadda saxlanarkən xəta baş verdi.");
+      alert("An error occurred while saving your result.");
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">{quiz.title} - Test</h2>
+
+      <label className="block mb-4">
+        <span className="text-gray-700 font-semibold">Your Name:</span>
+        <input
+          type="text"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+          placeholder="Enter your name"
+          required
+        />
+      </label>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {quiz.questions.map((q, idx) => (
           <div key={q.id} className="p-4 border rounded bg-gray-50">
@@ -89,7 +107,7 @@ export default function StartQuizPage() {
           type="submit"
           className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
         >
-          Testi Bitir
+          Finish Test
         </button>
       </form>
     </div>

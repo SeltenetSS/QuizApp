@@ -20,7 +20,7 @@ export default function LoginPage() {
     if (res.ok) {
       router.push("/admin/quizzes");
     } else {
-      alert("Email və ya şifrə səhvdir!");
+      alert("Incorrect email or password!");
     }
   };
 
@@ -41,7 +41,7 @@ export default function LoginPage() {
         />
         <input
           type="password"
-          placeholder="Şifrə"
+          placeholder="Password"
           className="w-full mb-4 px-4 py-2 border rounded-lg"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -51,13 +51,13 @@ export default function LoginPage() {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
         >
-          Daxil ol
+          Log In
         </button>
 
         <p className="mt-4 text-sm text-center">
-          Hesabın yoxdur?{" "}
+          Don't have an account?{" "}
           <a href="/register" className="text-blue-600 underline">
-            Qeydiyyatdan keç
+            Register here
           </a>
         </p>
       </form>

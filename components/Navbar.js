@@ -7,7 +7,6 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
- 
   const hideNavbarRoutes = ["/login", "/register"];
 
   if (hideNavbarRoutes.includes(pathname)) return null;
@@ -26,10 +25,10 @@ export default function Navbar() {
       </div>
       <div className="flex gap-4">
         <Link href="/admin/add-quiz" className="hover:underline">
-          Quiz Əlavə Et
+          Add Quiz
         </Link>
         <Link href="/admin/quizzes" className="hover:underline">
-          Quizlər
+          Quizzes
         </Link>
         <Link href="/leaderboard" className="hover:underline">
           Leaderboard
@@ -39,7 +38,7 @@ export default function Navbar() {
           onClick={handleLogout}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-md"
         >
-          Çıxış
+          Logout
         </button>
       </div>
     </nav>

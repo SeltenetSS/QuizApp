@@ -6,14 +6,15 @@ export async function GET(req, { params }) {
     include: { questions: true },
   });
 
-  if (!quiz) return Response.json({ error: "Quiz tapılmadı" }, { status: 404 });
+  if (!quiz) 
+    return Response.json({ error: "Quiz not found" }, { status: 404 });
+
   return Response.json(quiz);
 }
 
 export async function PUT(req, { params }) {
   const body = await req.json();
 
- 
   await prisma.quiz.update({
     where: { id: params.quizId },
     data: {
@@ -22,7 +23,7 @@ export async function PUT(req, { params }) {
     },
   });
 
-  // Sonra sualları yenilə
+
   for (let q of body.questions) {
     await prisma.question.update({
       where: { id: q.id },
@@ -34,5 +35,5 @@ export async function PUT(req, { params }) {
     });
   }
 
-  return Response.json({ message: "Uğurla yeniləndi" });
+  return Response.json({ message: "Successfully updated" });
 }

@@ -1,4 +1,3 @@
-// app/admin/quizzes/page.js
 import { prisma } from "@/lib/prisma";
 import QuizListClient from "./QuizListClient";
 

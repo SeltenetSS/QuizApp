@@ -8,7 +8,7 @@ export async function POST(req) {
   const user = token ? verifyToken(token) : null;
 
   if (!user) {
-    return Response.json({ error: "İcazə yoxdur" }, { status: 401 });
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   await prisma.result.create({
@@ -20,5 +20,5 @@ export async function POST(req) {
     },
   });
 
-  return Response.json({ message: "Nəticə yadda saxlanıldı" });
+  return Response.json({ message: "Result saved successfully" });
 }

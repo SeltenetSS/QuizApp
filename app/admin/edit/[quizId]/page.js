@@ -14,7 +14,7 @@ export default function EditQuizPage() {
       const res = await fetch(`/api/quiz/${quizId}`);
       const data = await res.json();
 
-      // options-u parse et
+
       const formatted = {
         ...data,
         questions: data.questions.map((q) => ({
@@ -60,15 +60,15 @@ export default function EditQuizPage() {
     if (res.ok) {
       router.push("/admin/quizzes");
     } else {
-      alert("Yeniləmə zamanı xəta baş verdi.");
+      alert("Error occurred while updating.");
     }
   };
 
-  if (loading) return <div className="text-center mt-10">Yüklənir...</div>;
+  if (loading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Quiz Redaktəsi</h2>
+      <h2 className="text-2xl font-bold mb-4">Edit Quiz</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <input
@@ -76,12 +76,14 @@ export default function EditQuizPage() {
           value={quiz.title}
           onChange={(e) => setQuiz({ ...quiz, title: e.target.value })}
           className="w-full border p-2 rounded"
+          placeholder="Quiz Title"
         />
         <input
           type="text"
           value={quiz.category}
           onChange={(e) => setQuiz({ ...quiz, category: e.target.value })}
           className="w-full border p-2 rounded"
+          placeholder="Category"
         />
 
         {quiz.questions.map((q, idx) => (
@@ -96,12 +98,14 @@ export default function EditQuizPage() {
               onChange={(e) =>
                 handleChange(idx, "question", e.target.value)
               }
+              placeholder={`Question ${idx + 1}`}
             />
             <input
               type="text"
               className="w-full border p-2 rounded"
               value={q.answer}
               onChange={(e) => handleChange(idx, "answer", e.target.value)}
+              placeholder="Correct Answer"
             />
             {q.options.map((opt, optIdx) => (
               <input
@@ -114,6 +118,7 @@ export default function EditQuizPage() {
                   newOptions[optIdx] = e.target.value;
                   handleChange(idx, "options", newOptions);
                 }}
+                placeholder={`Option ${optIdx + 1}`}
               />
             ))}
           </div>
@@ -123,7 +128,7 @@ export default function EditQuizPage() {
           type="submit"
           className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
         >
-          Yadda saxla
+          Save
         </button>
       </form>
     </div>

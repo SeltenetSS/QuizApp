@@ -6,13 +6,13 @@ export async function POST(req) {
     const { email, password } = await req.json();
 
     if (!email || !password) {
-      return Response.json({ error: "Email və ya şifrə boş ola bilməz" }, { status: 400 });
+      return Response.json({ error: "Email or password cannot be empty" }, { status: 400 });
     }
 
     const existing = await prisma.user.findUnique({ where: { email } });
 
     if (existing) {
-      return Response.json({ error: "Istifadəçi artıq mövcuddur" }, { status: 400 });
+      return Response.json({ error: "User already exists" }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,9 +21,9 @@ export async function POST(req) {
       data: { email, password: hashedPassword },
     });
 
-    return Response.json({ message: "Qeydiyyat uğurludur" });
+    return Response.json({ message: "Registration successful" });
   } catch (error) {
-    console.error("Qeydiyyat xətası:", error);
-    return Response.json({ error: "Server xətası baş verdi" }, { status: 500 });
+    console.error("Registration error:", error);
+    return Response.json({ error: "Server error occurred" }, { status: 500 });
   }
 }

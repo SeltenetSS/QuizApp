@@ -20,7 +20,7 @@ export default function RegisterPage() {
     if (res.ok) {
       router.push("/login");
     } else {
-      alert("Qeydiyyat zamanı xəta baş verdi.");
+      alert("An error occurred during registration.");
     }
   };
 
@@ -30,7 +30,7 @@ export default function RegisterPage() {
         onSubmit={handleRegister}
         className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Qeydiyyat</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <input
           type="email"
           placeholder="Email"
@@ -41,7 +41,7 @@ export default function RegisterPage() {
         />
         <input
           type="password"
-          placeholder="Şifrə"
+          placeholder="Password"
           className="w-full mb-4 px-4 py-2 border rounded-lg"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -51,13 +51,13 @@ export default function RegisterPage() {
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
         >
-          Qeydiyyatdan keç
+          Register
         </button>
 
         <p className="mt-4 text-sm text-center">
-          Artıq hesabın var?{" "}
+          Already have an account?{" "}
           <a href="/login" className="text-blue-600 underline">
-            Daxil ol
+            Login
           </a>
         </p>
       </form>
